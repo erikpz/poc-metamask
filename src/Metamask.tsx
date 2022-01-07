@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "./components/connectors";
