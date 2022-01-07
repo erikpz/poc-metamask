@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "./components/connectors";
 import { ethers } from "ethers";
 
 export const Metamask = () => {
-  const { library, activate } = useWeb3React();
+  const { library, activate, active } = useWeb3React();
   const [fields, setfields] = useState({ address: "", amount: "" });
-  const [active, setactive] = useState(false);
-  console.log("active", active);
   const handleInputs = (e: any) => {
     setfields({
       ...fields,
@@ -27,9 +25,16 @@ export const Metamask = () => {
   };
 
   const handleConnect = async () => {
-    await activate(injected);
-    setactive(true);
+    try {
+      await activate(injected);
+    } catch (err: any) {
+      console.log(err);
+    }
   };
+
+  useEffect(() => {
+    console.log("Active: ", active);
+  }, [active]);
 
   return (
     <div>
